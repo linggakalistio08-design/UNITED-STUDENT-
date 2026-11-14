@@ -1,0 +1,18 @@
+workflows:
+  united-student-android:
+    name: UNITED STUDENT Android APK
+    max_build_duration: 60
+    instance_type: linux_x2
+    environment:
+      flutter: stable
+    scripts:
+      - name: Prepare and build APK
+        script: |
+          mkdir -p project
+          unzip -o UNITED_STUDENT_Flutter_Project.zip -d project
+          cd project
+          flutter create . --platforms=android
+          flutter pub get
+          flutter build apk --debug
+    artifacts:
+      - project/build/app/outputs/flutter-apk/*.apk
